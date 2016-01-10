@@ -1,0 +1,126 @@
+<p>
+	<span style="font-size: 16px;"><font color="#153e7e">JP Climate, Weather and Energy Analysis</font> </span></p>
+<p>
+	&nbsp;</p>
+<p>
+	[ <strong><a href="http://www.wiwi.hu-berlin.de/professuren/quantitativ/statistik/members/personalpages/bl/home">Home</a></strong>&nbsp;| <a href="Teaching">Teaching</a>&nbsp;| <a href="Publications">Publications</a>&nbsp;| <a href="https://www.wiwi.hu-berlin.de/professuren/quantitativ/statistik/members/personalpages/bl/ResearchProjects">Research Projects</a>&nbsp;| <a href="CV">CV</a> | <a href="Talks">Talks</a> |&nbsp;<a href="links">Links</a> ]</p>
+<p>
+	&nbsp;</p>
+<div class="drei spalten erste portal" style="width:30%;">
+	<h3>
+		Contact</h3>
+	Telephone: <span class="skype_pnh_container" dir="ltr"><span class="skype_pnh_highlighting_inactive_common" dir="ltr" title="Rufen Sie diese Telefonnummer in Deutschland mit Skype an: +493020935807"><span class="skype_pnh_textarea_span"><span class="skype_pnh_text_span">+49&nbsp;(0) 30&nbsp;2093-5807</span></span><span class="skype_pnh_right_span"> </span></span></span><br />
+	Fax: +49 (0) 30 2093-5649<br />
+	E-Mail: <a href="mailto:lopezcab@wiwi.hu-berlin.de">lopezcab@wiwi.hu-berlin.de</a>
+	<h3>
+		Postal Address</h3>
+	<p>
+		Humboldt-Universität zu Berlin<br />
+		Wirtschaftswissenschaftliche Fakultät<br />
+		Ladislaus von Bortkiewicz<br />
+		Lehrstuhl für Statistik<br />
+		Unter den Linden 6<br />
+		10099 Berlin</p>
+	<h3>
+		News</h3>
+	<ul>
+		<li>
+			The second edition of "Statistics of Financial Markets: Exercises and Solution" with many R and Matlab Quantlets is available now!</li>
+		<li>
+			Course in SS 2014:<br />
+			Applied Methods in Quantitative Finance.This course is also part of BDPEMS. Master and PhD students are very welcome to take part.</li>
+		<li>
+			<a href="http://sfb649.wiwi.hu-berlin.de/fedc/events/efw2014/index.php">"Energy Finance Workshop" (Stolberg) </a></li>
+	</ul>
+</div>
+<div class="drei spalten portal" style="width:30%;">
+	<h3>
+		Office Hours</h3>
+	<p>
+		Tuesday, 14:00-16:00<br />
+		Spandauer Str. 1, Room 406<br />
+		Please contact me in advance.</p>
+	<h3>
+		Memberships</h3>
+	<ul>
+		<li>
+			<a href="http://www.case.hu-berlin.de/">C.A.S.E. - Center for Applied Statistics and Economics</a></li>
+	</ul>
+	<ul>
+		<li>
+			<a href="https://irtg1792.hu-berlin.de/">IRTG 1792 "High Dimensional Non Stationary Time Series"</a></li>
+	</ul>
+	<a href="http://sfb649.wiwi.hu-berlin.de/about/index.php">SFB 649 "Economic Risk" (Project C11 - Weather Risk Management)</a></div>
+<div class="drei spalten letzte portal" style="width:25%;">
+	<img src="BLC09a.jpg" /></div>
+<hr />
+<div class="skype_pnh_menu_container" id="skype_pnh_menu_container" onmouseout="SkypeClick2Call.MenuInjectionHandler.hideMenu(event)" onmouseover="SkypeClick2Call.MenuInjectionHandler.showMenu(this, event)" style="display:none;">
+	<div class="skype_pnh_menu_click2call">
+		<a class="skype_pnh_menu_click2call_action" id="skype_pnh_menu_click2call_action">Anrufen</a></div>
+	<div class="skype_pnh_menu_click2sms">
+		<a class="skype_pnh_menu_click2sms_action" id="skype_pnh_menu_click2sms_action">SMS senden</a></div>
+	<div class="skype_pnh_menu_add2skype">
+		<a class="skype_pnh_menu_add2skype_text" id="skype_pnh_menu_add2skype_text">Zu Skype hinzufügen</a></div>
+	<div class="skype_pnh_menu_toll_info">
+		<span class="skype_pnh_menu_toll_callcredit">Sie benötigen Skype-Guthaben</span><span class="skype_pnh_menu_toll_free">Per Skype kostenlos</span></div>
+</div>
+<div class="skype_pnh_menu_container" id="skype_pnh_menu_container" onmouseout="SkypeClick2Call.MenuInjectionHandler.hideMenu(event)" onmouseover="SkypeClick2Call.MenuInjectionHandler.showMenu(this, event)" style="display:none;">
+	<div class="skype_pnh_menu_click2call">
+		<a class="skype_pnh_menu_click2call_action" id="skype_pnh_menu_click2call_action">Anrufen</a></div>
+	<div class="skype_pnh_menu_click2sms">
+		<a class="skype_pnh_menu_click2sms_action" id="skype_pnh_menu_click2sms_action">SMS senden</a></div>
+	<div class="skype_pnh_menu_add2skype">
+		<a class="skype_pnh_menu_add2skype_text" id="skype_pnh_menu_add2skype_text">Zu Skype hinzufügen</a></div>
+	<div class="skype_pnh_menu_toll_info">
+		<span class="skype_pnh_menu_toll_callcredit">Sie benötigen Skype-Guthaben</span><span class="skype_pnh_menu_toll_free">Per Skype kostenlos</span></div>
+</div>
+<div class="skype_pnh_menu_container" id="skype_pnh_menu_container" onmouseout="SkypeClick2Call.MenuInjectionHandler.hideMenu(event)" onmouseover="SkypeClick2Call.MenuInjectionHandler.showMenu(this, event)" style="display:none;">
+	<div class="skype_pnh_menu_click2call">
+		<a class="skype_pnh_menu_click2call_action" id="skype_pnh_menu_click2call_action">Anrufen</a></div>
+	<div class="skype_pnh_menu_click2sms">
+		<a class="skype_pnh_menu_click2sms_action" id="skype_pnh_menu_click2sms_action">SMS senden</a></div>
+	<div class="skype_pnh_menu_add2skype">
+		<a class="skype_pnh_menu_add2skype_text" id="skype_pnh_menu_add2skype_text">Zu Skype hinzufügen</a></div>
+	<div class="skype_pnh_menu_toll_info">
+		<span class="skype_pnh_menu_toll_callcredit">Sie benötigen Skype-Guthaben</span><span class="skype_pnh_menu_toll_free">Per Skype kostenlos</span></div>
+</div>
+<div class="skype_pnh_menu_container" id="skype_pnh_menu_container" onmouseout="SkypeClick2Call.MenuInjectionHandler.hideMenu(event)" onmouseover="SkypeClick2Call.MenuInjectionHandler.showMenu(this, event)" style="display:none;">
+	<div class="skype_pnh_menu_click2call">
+		<a class="skype_pnh_menu_click2call_action" id="skype_pnh_menu_click2call_action">Anrufen</a></div>
+	<div class="skype_pnh_menu_click2sms">
+		<a class="skype_pnh_menu_click2sms_action" id="skype_pnh_menu_click2sms_action">SMS senden</a></div>
+	<div class="skype_pnh_menu_add2skype">
+		<a class="skype_pnh_menu_add2skype_text" id="skype_pnh_menu_add2skype_text">Zu Skype hinzufügen</a></div>
+	<div class="skype_pnh_menu_toll_info">
+		<span class="skype_pnh_menu_toll_callcredit">Sie benötigen Skype-Guthaben</span><span class="skype_pnh_menu_toll_free">Per Skype kostenlos</span></div>
+</div>
+<div class="skype_pnh_menu_container" id="skype_pnh_menu_container" onmouseout="SkypeClick2Call.MenuInjectionHandler.hideMenu(event)" onmouseover="SkypeClick2Call.MenuInjectionHandler.showMenu(this, event)" style="display:none;">
+	<div class="skype_pnh_menu_click2call">
+		<a class="skype_pnh_menu_click2call_action" id="skype_pnh_menu_click2call_action">Anrufen</a></div>
+	<div class="skype_pnh_menu_click2sms">
+		<a class="skype_pnh_menu_click2sms_action" id="skype_pnh_menu_click2sms_action">SMS senden</a></div>
+	<div class="skype_pnh_menu_add2skype">
+		<a class="skype_pnh_menu_add2skype_text" id="skype_pnh_menu_add2skype_text">Zu Skype hinzufügen</a></div>
+	<div class="skype_pnh_menu_toll_info">
+		<span class="skype_pnh_menu_toll_callcredit">Sie benötigen Skype-Guthaben</span><span class="skype_pnh_menu_toll_free">Per Skype kostenlos</span></div>
+</div>
+<div class="skype_pnh_menu_container" id="skype_pnh_menu_container" onmouseout="SkypeClick2Call.MenuInjectionHandler.hideMenu(event)" onmouseover="SkypeClick2Call.MenuInjectionHandler.showMenu(this, event)" style="display:none;">
+	<div class="skype_pnh_menu_click2call">
+		<a class="skype_pnh_menu_click2call_action" id="skype_pnh_menu_click2call_action">Anrufen</a></div>
+	<div class="skype_pnh_menu_click2sms">
+		<a class="skype_pnh_menu_click2sms_action" id="skype_pnh_menu_click2sms_action">SMS senden</a></div>
+	<div class="skype_pnh_menu_add2skype">
+		<a class="skype_pnh_menu_add2skype_text" id="skype_pnh_menu_add2skype_text">Zu Skype hinzufügen</a></div>
+	<div class="skype_pnh_menu_toll_info">
+		<span class="skype_pnh_menu_toll_callcredit">Sie benötigen Skype-Guthaben</span><span class="skype_pnh_menu_toll_free">Per Skype kostenlos</span></div>
+</div>
+<div class="skype_pnh_menu_container" id="skype_pnh_menu_container" onmouseout="SkypeClick2Call.MenuInjectionHandler.hideMenu(event)" onmouseover="SkypeClick2Call.MenuInjectionHandler.showMenu(this, event)" style="display:none;">
+	<div class="skype_pnh_menu_click2call">
+		<a class="skype_pnh_menu_click2call_action" id="skype_pnh_menu_click2call_action">Anrufen</a></div>
+	<div class="skype_pnh_menu_click2sms">
+		<a class="skype_pnh_menu_click2sms_action" id="skype_pnh_menu_click2sms_action">SMS senden</a></div>
+	<div class="skype_pnh_menu_add2skype">
+		<a class="skype_pnh_menu_add2skype_text" id="skype_pnh_menu_add2skype_text">Zu Skype hinzufügen</a></div>
+	<div class="skype_pnh_menu_toll_info">
+		<span class="skype_pnh_menu_toll_callcredit">Sie benötigen Skype-Guthaben</span><span class="skype_pnh_menu_toll_free">Per Skype kostenlos</span></div>
+</div>
