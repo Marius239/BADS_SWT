@@ -27,3 +27,6 @@ count <- function(x){
 
 missings <- apply(dnew,2,count)
 missings[missings>0.5]
+
+
+#das ist ein test
