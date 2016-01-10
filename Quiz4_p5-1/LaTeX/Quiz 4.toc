@@ -1,6 +1,0 @@
-\beamer@endinputifotherversion {3.36pt}
-\select@language {english}
-\beamer@sectionintoc {1}{Task}{2}{0}{1}
-\beamer@sectionintoc {2}{Binomial Distribution}{2}{0}{2}
-\beamer@sectionintoc {3}{Poisson Distribution}{2}{0}{3}
-\beamer@sectionintoc {4}{Standard Normal Distribution}{2}{0}{4}
