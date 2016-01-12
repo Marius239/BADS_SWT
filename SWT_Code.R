@@ -39,5 +39,5 @@ count <- function(x){
 }
 
 missing  <- data.frame(t(apply(dnew,2,count)))
-five     <- subset(missings, select = missings[1,]>0.5)  #Show variables where more than 50% are missing
+five     <- subset(missing, select = missing[1,]>0.5)  #Show variables where more than 50% are missing
 sort(five)
