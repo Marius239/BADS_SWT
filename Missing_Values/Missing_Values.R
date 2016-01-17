@@ -16,7 +16,6 @@ vars <- read.csv2("C:/Users/User/Desktop/Master/5th_Semester/Business_Analytics/
 #Store data to ensure original set is not changed
 dnew <- d
 
-
 #-------------------------------------------------------------------------------
 #Convert variable types of data to type in Excel Dexcription and 
 #Merge blanks and NAs of factor variables to level "Missing"
@@ -51,6 +50,7 @@ for(i in 1:ncol(dnew)){
   }
 }
 
+dnew <- dnew[, -172]  #Delete 'Customer_ID'
 
 #-------------------------------------------------------------------------------
 #Count function to count 'Missing' in Factors and NAs in numericals
@@ -122,7 +122,7 @@ for(i in 1:n){
 # Delete Observations with too many Missing Values
 
 ten <- missing_ind[missing_ind>=0.1]
-length(ten)  #1080 individuals with at least 10% NAs
+length(ten)  #1081 individuals with at least 10% NAs
 
 idx <- missing_ind < 0.1
 dnew3 <- dnew2[idx,]  # Dataset without Observations with at least 10% Missings 
