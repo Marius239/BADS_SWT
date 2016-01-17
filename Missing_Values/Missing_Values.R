@@ -52,6 +52,18 @@ for(i in 1:ncol(dnew)){
 
 dnew <- dnew[, -172]  #Delete 'Customer_ID'
 
+#Handle factor label 'Unknown' manually
+levels(dnew$dualband)[4] <- "Missing"
+levels(dnew$ethnic)[16]  <- "Missing"
+levels(dnew$kid0_2)[2]   <- "Missing"
+levels(dnew$kid3_5)[2]   <- "Missing"
+levels(dnew$kid6_10)[2]  <- "Missing"
+levels(dnew$kid11_15)[2] <- "Missing"
+levels(dnew$kid16_17)[2] <- "Missing"
+levels(dnew$marital)[6]  <- "Missing"
+levels(dnew$new_cell)[2] <- "Missing"
+
+
 #-------------------------------------------------------------------------------
 #Count function to count 'Missing' in Factors and NAs in numericals
 
