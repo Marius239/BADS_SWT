@@ -1,0 +1,18 @@
+Mit Imputation:
+
+data complete: Datensatz mit allen Variabeln und allen Beobachtungen
+data 148vars:  Datensatz bei dem Variablen mit über 50% Missings gelöscht wurden
+data           Datensatz bei dem Variablen mit über 50% Missings und Induviduen mit über 10% Missings gelöscht wurden
+med:           Median Imputation der numerischen Variablen
+mean:          Mittelwert Imputation der numerischen Variablen
+
+
+
+Ohne Imputation:
+
+dnew:  Datensatz mit allen Variabeln
+dnew2: Datensatz bei dem Variablen mit über 50% Missings gelöscht wurden
+dnew3: Datensatz bei dem Variablen mit über 50% Missings und Induviduen mit über 10% Missings gelöscht wurden
+
+
+Fuer alle gilt: Kategorische Variablen wurden imputiert durch Verwendung des Faktorlevels: 'Missing'
