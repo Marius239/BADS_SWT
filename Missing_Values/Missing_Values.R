@@ -10,7 +10,7 @@ d <- read.csv("BADS - SWT - Trainingset - 2015-10-27/BADS - SWT - Trainingset - 
               stringsAsFactors = FALSE)
 
 #Read file with variable types
-vars <- read.csv2("C:/Users/User/Desktop/Master/5th_Semester/Business_Analytics/SWT/Variables.csv",
+vars <- read.csv2("C:/Users/User/Desktop/Master/5th_Semester/Business_Analytics/SWT/Variables_V2.csv",
                   stringsAsFactors = FALSE)
 
 #Store data to ensure original set is not changed
@@ -62,6 +62,50 @@ levels(dnew$kid11_15)[2] <- "Missing"
 levels(dnew$kid16_17)[2] <- "Missing"
 levels(dnew$marital)[6]  <- "Missing"
 levels(dnew$new_cell)[2] <- "Missing"
+
+#Convert 0 in age1 and age2 to NA
+dnew$age1[dnew$age1 == 0] <- NA
+dnew$age2[dnew$age2 == 0] <- NA
+
+#create binary age1/age2 variable and to data
+age1_bool <- factor(dnew$age1, exclude = NULL)
+levels(age1_bool)[length(levels(age1_bool))] <- 0
+levels(age1_bool)[levels(age1_bool) != 0] <- 1
+
+age2_bool <- factor(dnew$age2, exclude = NULL)
+levels(age2_bool)[length(levels(age2_bool))] <- 0
+levels(age2_bool)[levels(age2_bool) != 0] <- 1
+
+dnew$age1_bool <- age1_bool  #Add age1_bool to data
+dnew$age2_bool <- age2_bool  #Add age2_bool to data
+
+#Convert last_swap to time difference (is given as date)
+swap_char                    <- as.character(dnew$last_swap) 
+swap_date                    <- as.Date(swap_char[swap_char != "Missing"],
+                                        format = "%m/%d/%Y")
+swap_diff                    <- as.Date("2002-01-31") - swap_date
+swap                         <- swap_char 
+swap[swap_char != "Missing"] <- swap_diff
+swap_numeric                 <- as.numeric(swap)
+dnew$swap_numeric            <- swap_numeric
+
+#Bin original swap and take as factor (replace original variable)
+swap_breaks            <- quantile(na.omit(swap_numeric), c(0, 0.25, 0.5, 0.75, 1))
+swap_factor            <- factor(cut(swap_numeric, breaks = swap_breaks), exclude = NULL)
+levels(swap_factor)[5] <- "No Swap" 
+dnew$last_swap         <- swap_factor
+
+#ref_qty to binary: Referral or no Referral
+levels(dnew$REF_QTY)[length(levels(dnew$REF_QTY))] <- 0  #'Missing' indicates no referral
+
+ref_qty_bool <- dnew$REF_QTY
+levels(ref_qty_bool)[levels(ref_qty_bool) != "0"] <- "Y"
+dnew$REF_QTY_bool <- ref_qty_bool
+
+#Create binary variable for retention call days
+retdays_bool <- factor(dnew$retdays, exclude = NULL)
+levels(retdays_bool)[length(levels(retdays_bool))] <- "Not Called"
+levels(retdays_bool)[levels(retdays_bool) != "Not Called"] <- "Called"
 
 
 #-------------------------------------------------------------------------------
