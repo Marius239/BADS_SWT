@@ -307,7 +307,13 @@ dataWithoutNas <- subset(dataWithoutNas, select = -c(churnNumeric, csa))
 
 
 rf <- randomForest(churn ~ . , data = dataWithoutNas, importance = TRUE) # importance (variable importance)
-rf
+rf$importance
+summaryImportance <-  rf$importance
+
+
+# write.csv2(summaryImportance, file = "~/Google Drive/BADS_SWT/Missing_and_Variable_Selection/SummaryImportanceRandomForestWOcsa.csv", row.names = TRUE)
+
+
 summary(rf)
 varImpPlot(rf)
 
