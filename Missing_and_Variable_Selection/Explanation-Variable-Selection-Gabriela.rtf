@@ -1,0 +1,59 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww20800\viewh14840\viewkind0
+\deftab720
+\pard\pardeftab720
+
+\f0\fs28 \cf0 \expnd0\expndtw0\kerning0
+Hier ist was ich gemacht habe: \
+\
+Kategorische Variablen, wenn man die NAs als extra Kategorie (\'84Missing\'93) machen, sollten kein Problem sein. \
+\
+Numerische Variablen sind besonderes problematisch, und es gibt ein paar von denen, die ziemlich viele NAs haben.\'a0 \
+\
+
+\b\fs36 TEIL 1: Data Stuff 
+\b0\fs28 \
+\
+\'96 Age1 (14791 NAs wenn man die 0 in NA umwandelt) und age2 (26822 NAs) : binning in folgende Kategorien: (0,30], (30,40], (40,50], (50-60], (60, max(age)] - NAs \'97> \'84Missing" \
+Die Variable age_1_bool & age_2_bool w\'fcrden trotzdem ggf. sagen welche 0 waren \
+\
+\'96Roaming-Variablen (42964 NAs) \'97> keine Korrelation mit Churn \'97> werden gel\'f6scht. Ich habe trotzdem Dummies hinzugef\'fcgt (TRUE wenn es ein NA ist) \
+\
+\'96 swap_numeric (28581) - die hatte, f\'fcr unsere Standards eine relative h\'f6he Korrelation mit Churn, hat aber auch eine ,95 Korrelation mit eqpdays (1 NA) also swap_numeric kommt nicht in der Analyse. Die Faktor Variable (swap, no swap) bleibt in der data frame. \
+\
+\'96 ret_days (48083 NAs) \'a0\'96 Binning mit quantiles - k\'f6nnen wir \'fcberlegen ob es was besseres gibt. Die andere kategorische Variablen die auch was mit Anrufe auf das retention Team zu tun haben, scheinen wichtig zu sein, deswegen k\'f6nnte es sich l\'f6hnen zu gucken ob wir diese besser binnen k\'f6nnen. NAs werden \'97> \'84Missing" \
+\
+\'96tot_ret & tot_acpt - In diesem Fall Missing bedeutet eher keine Anruf also ich habe den Level von Missing auf \'84Not Called\'93 ge\'e4ndert \
+\
+Mit diesen \'c4nderungen bekommen wir ein Datensatz, f\'fcr den keine Numerische Variable mehr als 3% von NAs hat. Wenn wir einen neuen Datensatz subseten, f\'fcr das es keine NAs gibt, bekommen wir 48127 Observations ohne NAs. Man k\'f6nnte sich diese NAs angucken... \
+\
+
+\b\fs36 TEIL 2: VARIABLE SELECTION 
+\b0\fs28 \
+\
+Ich habe den Datensatz in 2 gesplitted: 1) alle Kategorische Variablen 2) alle numerische Variablen (+ numerische Version von Churn) \
+\
+
+\b 1. WOE & IV 
+\b0 \
+Ich habe den Information Value berechnet \'fcber die WOE-Method und gefiltert nach die Rule of Thumb der Vorlesung (\'fcber ,02 hat irgendwelche Erkl\'e4rungs-Power) \
+Es blieben 9 Variablen: \
+csa(,072), hnd_price(0,052), hnd_webcap(0,032), last_swap(0,029) , crclscod(0,027), retdays_factor (0,024), tot_acpt (0,023), retdays_bool(0,021), tot_ret (0,021) \
+\
+Die IV-Werte sind nicht die Bombe... \
+\
+
+\b 2. Korrelatrionsmatrix 
+\b0 \
+Hier sieht es wirklich traurig aus. Keine einzige Variable hat eine gute Korrelation mit Churn. Wenn es eine Beziehung gibt, es wird nicht so einfach Linear sein.\'a0 \
+Ich habe eine Variable gerettet: eqpdays (p = 0,11). Ja, keine andere ist \'fcber ,10 \
+\
+Ich vermute, vielleicht deswegen hat er betont, dass wir Random Forest f\'fcr Variable selection machen\'85. \
+\
+Anmerkung \'fcber csa-Variable. Diese kann nicht einfach so in Random Forest hinzugef\'fcgt werden, da es zu viele levels ( um die 700 hat) hat. Aber scheint relativ wichtig zu sein. Wir m\'fcssten gucken ob wir sie irgendwie gruppieren k\'f6nnen \'85 oder zu Dummies machen, oder\'85.? \
+\
+\
+\
+}
