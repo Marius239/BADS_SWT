@@ -9,7 +9,7 @@ library("leaps")
 library("randomForest")
 library("klaR")
 library("Hmisc")
-
+library("caret")
 
 
 
@@ -161,6 +161,21 @@ dnew$rmmouNA <- is.na(dnew$rmmou)
 
 dnew$rmrevNA <- is.na(dnew$rmrev)
 
+# deal with csa - It denotes different cities in combination with area codes
+
+dnew$csaCities <- factor(substr(dnew$csa, 1, 3)) 
+levels(dnew$csaCities)[levels(dnew$csaCities) == "Mis"] <- "Missing"
+levels(dnew$csaCities)[levels(dnew$csaCities) == "SLU" |
+                         levels(dnew$csaCities) == "LAW" |
+                         levels(dnew$csaCities) == "HOP" |
+                         levels(dnew$csaCities) == "INU" |
+                         levels(dnew$csaCities) == "SFU"] <- "Missing"
+
+nlevels(dnew$csaCities)
+summary(as.factor(dnew$csaCities))
+# Total amount of levels 58 - we need max 56 to be able to perform the random forest approach. There were
+# 3 cities with just one observation - I changed them to be missing
+
 
 # Split info into two data frames with i) all categorical variables and ii) all numeric variables
 
@@ -210,24 +225,28 @@ sort(missing_var_numeric, decreasing = TRUE)
 # After checking the percentages for the numeric variables We eliminate retdays, rmcalls, rmmou 
 # The rest of the variables have less than 3% NAs this shouldn't change dramatically the results
 
-dnew2 <- subset(dnew, select = -c(retdays, rmcalls, rmmou, rmrev))
-
-
-
-
-# Re do the split of the data frames
-is_factor2 <- sapply(dnew2, is.factor) # Logical vector that tells which variables are categorical
-is_numeric2 <- sapply(dnew2, is.numeric)
-
-dnewCategorical <- dnew2[, is_factor2] # Data frame just with categorical variables
-dnewNumeric <- dnew2[, is_numeric2]
+dnew2 <- subset(dnew, select = -c(retdays, rmcalls, rmmou, rmrev, csa))
 
 
 
 
 
+############################################################
+#### Data Partition into Training and test set #############
+############################################################
 
 
+# Division in two uses 70% for training and 30% for testint
+ind <- createDataPartition(dnew2$churn, p = .7, list = FALSE)
+
+trainData  <- dnew2[ind,]
+testData <- dnew2[-ind,]
+
+
+
+
+
+################## END CROSS-VALIDATION CREATION OF DATA SETS ######
 
 #-------------------------------------------------------------------------------
 ######### VARIABLE SELECTION ########
@@ -239,6 +258,14 @@ dnewNumeric <- dnew2[, is_numeric2]
 ############################
 # WOE Analysis for categorical variables ####
 ##########################
+
+
+# Re do the split of the data frames
+is_factor2 <- sapply(trainData, is.factor) # Logical vector that tells which variables are categorical
+is_numeric2 <- sapply(trainData, is.numeric)
+
+dnewCategorical <- trainData[, is_factor2] # Data frame just with categorical variables
+dnewNumeric <- trainData[, is_numeric2]
 
 
 
@@ -266,13 +293,6 @@ corrMatrix <- cor(dnewNumeric, use= "pairwise.complete.obs", method = "pearson")
 churnCorrelations  <- corrMatrix[,"churnNumeric"] # get just the correlations between churn and all the other variables
 sort(churnCorrelations, decreasing = TRUE)
 
-# Check with Hmisc Package
-corrCalculationsHmisc <-  rcorr(as.matrix(dnewNumeric), type = "pearson") 
-corrMatrix <- as.data.frame(corrCalculationsHmisc$r) # get correlation matrix
-corrCalculationsHmisc  <- corrMatrix[,"churnNumeric"] # get just the correlations between churn and all the other variables
-sort(corrCalculationsHmisc, decreasing = TRUE)
-amountObservationsCorrelations <- as.data.frame(corrCalculations$n) # get the number of observations used in every case
-churnAmountObservations <- amountObservationsCorrelations[,"churnNumeric"]
 
 
 numericalVariablesToSelect <- churnCorrelations[abs(churnCorrelations)>=.10] # arbitrary cut at correlation .10 (not really meaningful)
@@ -294,15 +314,17 @@ numberOfLevels <- sapply(dnewCategorical, nlevels)
 sort(numberOfLevels, decreasing = TRUE)
 
 
-dataWithoutNas <- na.omit(dnew2)
-dataWithoutNas <- subset(dataWithoutNas, select = -c(churnNumeric, csa))
+dataWithoutNas <- na.omit(trainData)
+dataWithoutNas <- subset(dataWithoutNas, select = -c(churnNumeric))
 
 #write.csv2(dataWithoutNas, file = "~/Google Drive/BADS_SWT/Missing_and_Variable_Selection/DataWithoutNAs.csv", row.names = FALSE)
+
+#####
+
 
 
 ##############################################
 ### Random Forest for variable selection  ####
-###############################################
 
 
 
@@ -310,15 +332,18 @@ rf <- randomForest(churn ~ . , data = dataWithoutNas, importance = TRUE) # impor
 RFConfusion <- rf$confusion
 errorRate <- rf$err.rate
 summaryImportance <-  rf$importance
-rf$oob.times
-
-# write.csv2(summaryImportance, file = "~/Google Drive/BADS_SWT/Missing_and_Variable_Selection/SummaryImportanceRandomForestWOcsa.csv", row.names = TRUE)
-# write.csv2(predictions, file = "~/Google Drive/BADS_SWT/Missing_and_Variable_Selection/SummaryImportanceRandomForestWOcsaPredictions.csv", row.names = TRUE)
-# write.csv2(RFConfusion, file = "~/Google Drive/BADS_SWT/Missing_and_Variable_Selection/SummaryImportanceRandomForestWOcsaConfusionMatrix.csv", row.names = TRUE)
+predictions <- rf$predictions
+plot <- varImpPlot(rf)
 
 
-summary(rf)
-varImpPlot(rf)
+# system.time(rf2 <- randomForest(churn ~ . , data = dataWithoutNas, importance = TRUE))
+
+write.csv2(summaryImportance, file = "~/Google Drive/BADS_SWT/Missing_and_Variable_Selection/SummaryImportanceRandomForestWcsaCities3.csv", row.names = TRUE)
+write.csv2(predictions, file = "~/Google Drive/BADS_SWT/Missing_and_Variable_Selection/SummaryImportanceRandomForestWcsaCitiesPredictions3.csv", row.names = TRUE)
+write.csv2(RFConfusion, file = "~/Google Drive/BADS_SWT/Missing_and_Variable_Selection/SummaryImportanceRandomForestWcsaCitiesConfusionMatrix3.csv", row.names = TRUE)
+write.csv2(errorRate, file = "~/Google Drive/BADS_SWT/Missing_and_Variable_Selection/SummaryImportanceRandomForestWcsaCitiesErrorRate3.csv", row.names = TRUE)
+
+
 
 
 
@@ -329,6 +354,31 @@ varImpPlot(rf)
 
 
 #-------------------------------------------------------------------------------
+
+# Check with Hmisc Package
+# corrCalculationsHmisc <-  rcorr(as.matrix(dnewNumeric), type = "pearson") 
+# corrMatrix <- as.data.frame(corrCalculationsHmisc$r) # get correlation matrix
+# corrCalculationsHmisc  <- corrMatrix[,"churnNumeric"] # get just the correlations between churn and all the other variables
+# sort(corrCalculationsHmisc, decreasing = TRUE)
+# amountObservationsCorrelations <- as.data.frame(corrCalculationsHmisc$n) # get the number of observations used in every case
+# churnAmountObservations <- amountObservationsCorrelations[,"churnNumeric"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Delete all Variables with Missing Values >= 50%
 
 #five     <- missing_var[missing_var>=0.5]  # Contains variables where more than 50% are missing

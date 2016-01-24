@@ -27,6 +27,8 @@ Die Variable age_1_bool & age_2_bool w\'fcrden trotzdem ggf. sagen welche 0 ware
 \
 \'96tot_ret & tot_acpt - In diesem Fall Missing bedeutet eher keine Anruf also ich habe den Level von Missing auf \'84Not Called\'93 ge\'e4ndert \
 \
+\'96 csa - Die Variable ist ein Code Stadt + Ich glaube Stadtteil + Area code (Telefon) - Mit insgesamt mehr als 700 Levels (zu viel f\'fcr Random Forest Methode) - Ich habe nur die Stadt genommen - kommen auf 58 St\'e4dte (immer noch zu viel f\'fcr Random Forests) . Ich habe die 3 St\'e4dte (Levels der Variable) , die nur eine Observation hatten als Missing zugeordnet . Wenn ich nur die neue Variable csaCities in der WOE - Analyse mache verliert diese Variable ihre Wichtigkeit. (Ich checke es trotzdem noch mit Random Forest)\
+\
 Mit diesen \'c4nderungen bekommen wir ein Datensatz, f\'fcr den keine Numerische Variable mehr als 3% von NAs hat. Wenn wir einen neuen Datensatz subseten, f\'fcr das es keine NAs gibt, bekommen wir 48127 Observations ohne NAs. Man k\'f6nnte sich diese NAs angucken... \
 \
 
@@ -51,9 +53,6 @@ Hier sieht es wirklich traurig aus. Keine einzige Variable hat eine gute Korrela
 Ich habe eine Variable gerettet: eqpdays (p = 0,11). Ja, keine andere ist \'fcber ,10 \
 \
 Ich vermute, vielleicht deswegen hat er betont, dass wir Random Forest f\'fcr Variable selection machen\'85. \
-\
-Anmerkung \'fcber csa-Variable. Diese kann nicht einfach so in Random Forest hinzugef\'fcgt werden, da es zu viele levels ( um die 700 hat) hat. Aber scheint relativ wichtig zu sein. Wir m\'fcssten gucken ob wir sie irgendwie gruppieren k\'f6nnen \'85 oder zu Dummies machen, oder\'85.? \
-\
 \
 \
 }
