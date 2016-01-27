@@ -33,8 +33,8 @@ data_na$churn <- factor(data_na$churn, labels = c("Y", "N"))
 data_test_na$churn <- factor(data_test_na$churn, labels = c("Y", "N"))
 
 factors <- names(data_na[, sapply(data_na, is.factor)])
-data_na <- data_na[,-which(names(data_na) %in% factors[1:4])]
-data_test_na <- data_test_na[,-which(names(data_test_na) %in% factors[1:4])]
+data_na <- data_na[1:200,-which(names(data_na) %in% factors[1:4])]
+data_test_na <- data_test_na[1:200,-which(names(data_test_na) %in% factors[1:4])]
 
 #------------------------------------------------------------------------------------------------
 # Support Vector Machines with caret: Top 26 numeric variables, all observations, NAs omitted
@@ -88,7 +88,7 @@ tune <- function(x){
   
   sigma_new = seq(sigma-.05, sigma+.05, by=.01)
   set.seed(1492)
-  grid <- expand.grid(C = seq(C-1,C+1, by= .1), sigma = sigma_new[x])
+  grid <- expand.grid(C = seq(max(c(0,C-1)),C+1, by= .1), sigma = sigma_new[x])
 
   # Tuning
   svm.tune <- train(churn~., 
