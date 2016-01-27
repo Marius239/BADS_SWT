@@ -54,7 +54,7 @@ for(i in 1:ncol(dnew)){
   }
 }
 
-dnew <- dnew[, -172]  #Delete 'Customer_ID'
+#dnew <- dnew[, -172]  #Delete 'Customer_ID'
 
 #Handle factor label 'Unknown' manually
 levels(dnew$dualband)[4] <- "Missing"
@@ -225,9 +225,9 @@ sort(missing_var_numeric, decreasing = TRUE)
 # After checking the percentages for the numeric variables We eliminate retdays, rmcalls, rmmou 
 # The rest of the variables have less than 3% NAs this shouldn't change dramatically the results
 
-dnew2 <- subset(dnew, select = -c(retdays, rmcalls, rmmou, rmrev, csa))
+dnew2 <- subset(dnew, select = -c(retdays, rmcalls, rmmou, rmrev))
 
-
+summary(dnew2$hnd_price)
 
 
 
@@ -235,16 +235,18 @@ dnew2 <- subset(dnew, select = -c(retdays, rmcalls, rmmou, rmrev, csa))
 #### Data Partition into Training and test set #############
 ############################################################
 
-
+set.seed(13)
 # Division in two uses 70% for training and 30% for testint
 ind <- createDataPartition(dnew2$churn, p = .7, list = FALSE)
+
 
 trainData  <- dnew2[ind,]
 testData <- dnew2[-ind,]
 
 
 
-
+summary(trainData$churn)
+class(trainData$churn)
 
 ################## END CROSS-VALIDATION CREATION OF DATA SETS ######
 
@@ -310,6 +312,7 @@ namesOfRetainedVariables <- c(names(numericalVariablesToSelect ), names(categori
 
 #####
 #### DATAFRAME WITHOUT NA's
+
 numberOfLevels <- sapply(dnewCategorical, nlevels)
 sort(numberOfLevels, decreasing = TRUE)
 
@@ -344,10 +347,32 @@ write.csv2(RFConfusion, file = "~/Google Drive/BADS_SWT/Missing_and_Variable_Sel
 write.csv2(errorRate, file = "~/Google Drive/BADS_SWT/Missing_and_Variable_Selection/SummaryImportanceRandomForestWcsaCitiesErrorRate3.csv", row.names = TRUE)
 
 
+#### END OF VARIABLE SELECTION ####
+
+##########################################
+######## SUBSET DATAFRAMES TO CONTAIN JUST THE SELECTED VARIABLES ################
+##########################################
 
 
+trainDataForModels <- subset(trainData, select = c(Customer_ID, churn, eqpdays, months, mou_Mean, totmrc_Mean,last_swap,
+                                                   hnd_price,adjrev, change_mou, mou_cvce_Mean, avg3mou,
+                                                   totrev,mou_Range, mou_opkv_Mean,totcalls,phones, avg3qty,
+                                                   complete_Mean, peak_vce_Mean,comp_vce_Mean, totmou, opk_vce_Mean,
+                                                   mou_peav_Mean,adjqty, avgqty,adjmou,rev_Mean, ovrmou_Range,
+                                                   rev_Range, ovrmou_Mean, plcd_vce_Mean, csa))
+
+testDataForModels <- subset(testData, select = c(Customer_ID, churn, eqpdays, months, mou_Mean, totmrc_Mean,last_swap,
+                                                  hnd_price,adjrev, change_mou, mou_cvce_Mean, avg3mou,
+                                                  totrev,mou_Range, mou_opkv_Mean,totcalls,phones, avg3qty,
+                                                  complete_Mean, peak_vce_Mean,comp_vce_Mean, totmou, opk_vce_Mean,
+                                                  mou_peav_Mean,adjqty, avgqty,adjmou,rev_Mean, ovrmou_Range,
+                                                  rev_Range, ovrmou_Mean, plcd_vce_Mean, csa))
 
 
+summary(trainDataForModels$hnd_price)
+
+write.csv2(trainDataForModels, file = "~/Google Drive/BADS_SWT/TrainingDataSet.csv", row.names = FALSE)
+write.csv2(testDataForModels, file = "~/Google Drive/BADS_SWT/TestDataSet.csv", row.names = FALSE)
 
 
 
