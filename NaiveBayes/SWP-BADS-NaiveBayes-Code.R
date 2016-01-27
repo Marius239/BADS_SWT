@@ -33,51 +33,46 @@ library("AUC")
 
 # testData <- subset(testData, select = -c(Customer_ID, csa))
 
-trainData2 <- na.omit(trainData)
+trainData2 <- na.omit(trainDataNew)
 
 #dRed$churn <- factor(dRed$churn, labels = c("not churn", "churn"))
 
+
+variablesInTheModel <- c("eqpdays", "months", "mou_Mean", "totmrc_Mean", "last_swap", "hnd_price", "adjrev",
+                           "change_mou", "mou_cvce_Mean", "avg3mou", "totrev", "mou_Range", "mou_opkv_Mean", "totcalls" ,
+                           "phones", "avg3qty", "complete_Mean", "peak_vce_Mean", "comp_vce_Mean", "totmou", "opk_vce_Mean",
+                           "mou_peav_Mean", "adjqty", "avgqty", "adjmou", "rev_Mean", "ovrmou_Range", "rev_Range", "ovrmou_Mean",
+                           "plcd_vce_Mean")
+
 ## Naive Bayes Model
-nb <- NaiveBayes(churn ~ eqpdays + months + mou_Mean + totmrc_Mean + last_swap + hnd_price + adjrev +
+nbLong <- NaiveBayes(churn ~ eqpdays + months + mou_Mean + totmrc_Mean + last_swap + hnd_price + adjrev +
                  change_mou + mou_cvce_Mean + avg3mou + totrev + mou_Range + mou_opkv_Mean + totcalls +
                  phones + avg3qty + complete_Mean + peak_vce_Mean + comp_vce_Mean + totmou + opk_vce_Mean +
                  mou_peav_Mean + adjqty + avgqty + adjmou + rev_Mean + ovrmou_Range + rev_Range + ovrmou_Mean +
                  plcd_vce_Mean, data = trainData2)
 
+nb <- NaiveBayes(churn ~ eqpdays + months + mou_Mean + totmrc_Mean + last_swap + hnd_price + adjrev +
+                   change_mou + mou_cvce_Mean + avg3mou + totrev + mou_Range + mou_opkv_Mean + totcalls +
+                   phones, data = trainData2)
+
+
+
+
+
 ## Make the predictions on the test data
 
 
-nbResults <- predict(nb, newdata = testData)
+nbResults <- predict(nbLong, newdata = testDataNew)
 nbPostProb <- data.frame(nbResults$posterior)
-#cutoff <- 0.5
-#length(nbPostProb[,2])
 
-#head(nbPostProb)
 
-#nbPostProb$nbPredClasses <- factor(nbPostProb[,2] >= cutoff, 
- #                       labels = c("pred.churn", "pred.not churn"))
+nbPredictionsFinal <- predict(nb, newdata = testSetFinal)
+
 
 predictionsNB <- data.frame(testData$Customer_ID, nbPostProb$X1)
 colnames(predictionsNB) <- c("Customer_ID", "predictedProbabilityChurn")
 
 
-
-testOrder <- predictionsNB[with(predictionsNB, order(-predictedProbabilityChurn)),]
-top10quantile <- quantile(predictionsNB$predictedProbabilityChurn, probs = .9, na.rm = TRUE)
-testOrder2 <- na.omit(predictionsNB)
-testOrder2<- testOrder2[testOrder2$predictedProbabilityChurn>= top10quantile,]
-
-#testOrder <- predictionsNB[seq(from = 1, to =ceiling(.1*nrow(testOrder)), by= 1),]
- 
-class(predictionsNB$predictedProbabilityChurn)
-?seq
-head(testOrder)
-# head(test)
-
-# Confusion matrix ###
-CrossTable(testData$churn, nbPostProb$nbPredClasses,
-           prop.t = FALSE)
-table(testData$churn, nbPostProb$nbPredClasses)
 
 
 ### Build the accuracy parameter calculations - Idea - everyone with their models imput a data frame just with the following
@@ -137,11 +132,8 @@ ModelMetricsFunction <- function (predictionsData, decile, pi, ...) {
   countChurnersInTopQuantile <- sum(dataForLift$churn == 1)
   lift <- countChurnersInTopQuantile/(nrow(dataForLift)*.4956) # assumption pi equal to proportion of churners in training data
   
-  #dataForLift2 <- na.omit(data)
-  #dataForLift2 <- data[with(data, order(-predictedProbability)),] 
-    # dataForLift <- data[with(data, order(-predictedProbability)),] # sort in descending order
-#  dataForLift <- data[1:ceiling(.1*nrow(dataForLift)),]
- 
+# Generate a list with the output
+  
   output <- list(
     summaryPredictedProb = summaryPredictedProba,
     countNAs = countNAsPredictedProba,
@@ -204,4 +196,27 @@ quantile(predictionsNB$predictedProbabilityChurn, probs = c(0,.1,.5,.9,1), na.rm
 
 
 ### Plot all ROC Curves together
+
+
+
+
+
+
+testOrder <- predictionsNB[with(predictionsNB, order(-predictedProbabilityChurn)),]
+top10quantile <- quantile(predictionsNB$predictedProbabilityChurn, probs = .9, na.rm = TRUE)
+testOrder2 <- na.omit(predictionsNB)
+testOrder2<- testOrder2[testOrder2$predictedProbabilityChurn>= top10quantile,]
+
+#testOrder <- predictionsNB[seq(from = 1, to =ceiling(.1*nrow(testOrder)), by= 1),]
+
+class(predictionsNB$predictedProbabilityChurn)
+?seq
+head(testOrder)
+# head(test)
+
+# Confusion matrix ###
+CrossTable(testData$churn, nbPostProb$nbPredClasses,
+           prop.t = FALSE)
+table(testData$churn, nbPostProb$nbPredClasses)
+
 

@@ -20,7 +20,7 @@ testDataForModelSelection <- subset(testData, select = c(Customer_ID, churn))
 
 ModelMetricsFunction <- function (predictionsData, decile, pi, ...) {
   ## PredictionsData: dataframe with first column Customer_ID and second column the predicted Probability calculated from the model
-  ## decile - decile wished for the lift measure
+  ## decile - decile wished for the lift measure 
   ## pi - probability used as cutoff value for confusion Matrix and classification Error
   
   # Merge predictions with actual churn or not churn
