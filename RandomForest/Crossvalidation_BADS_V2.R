@@ -76,7 +76,7 @@ data<-train
 
 
 #Cross-validation
-data=na.omit(data)[1:5000,]
+data=na.omit(data)
 
 k=10
 n=floor(nrow(data)/k)
@@ -107,4 +107,4 @@ for(i in 1:k){
   print(paste("AUC for fold", i, ":", err.vect[i],lift.vect[i]))
 }
 
-print(paste("Aveage AUC", mean(err.vect),mean(lift.vect)))
+print(paste("Average AUC", mean(err.vect),mean(lift.vect)))
