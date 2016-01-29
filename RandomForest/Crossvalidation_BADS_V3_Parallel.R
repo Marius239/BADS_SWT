@@ -16,7 +16,6 @@ rm(list = ls())
 library(foreign)
 library(randomForest)
 library(tree)
-library(beepr)
 library("AUC")
 library("party")
 library("gbm")
@@ -31,12 +30,19 @@ library(doParallel)
 #-------------------------------------------
 setwd("C:/Users/luxmariu.hub/Desktop/RandomForest")
 
+anzahl <- c(13, 15, 25, 27, 30, 31, 36, 39)
 
-load("TrainingData.RData")
-train.data <- trainingSetFinal
+for(i in 1:length(anzahl)){
+
+nvar <- anzahl[i]
+t    <- 3000
+
+load("TrainingDataMean40Var.RData")
+train.data <- trainingSetMean
 ranking <- read.csv2("RF_Selection.csv", stringsAsFactors = FALSE)
 
-vars <- c("churn", ranking$Variable[1:30])
+
+vars <- c("churn", ranking$Variable[1:nvar])
 
 sum(vars %in% names(train.data))  #Check if all variables are in trainData
 
@@ -45,15 +51,15 @@ data <- na.omit(train.data[,which(names(train.data) %in% vars)])
 #------------------------------------------------------------------------------
 #Data management
 
-data$phones <- as.numeric(data$phones)
-data$phones[data$phones>10] <- 10
-data$phones <- as.factor(data$phones)
+# data$phones <- as.numeric(data$phones)
+# data$phones[data$phones>10] <- 10
+# data$phones <- as.factor(data$phones)
 
 
 #------------------------------------------------------------------------------
 #Function that is used in parallelized code
 
-rf <- function(x){
+rf <- function(x, trees){
   
   library(foreign)
   library(randomForest)
@@ -80,7 +86,7 @@ rf <- function(x){
   
   fit        = randomForest(x = cv.train[,which(names(cv.train) != "churn")], 
                             y = cv.train$churn, 
-                            ntree = 3000) 
+                            ntree = trees) 
   
   prediction = predict(fit, newdata = cv.test[,which(names(cv.train) != "churn")], type="prob")[,2]
   
@@ -112,11 +118,12 @@ cores <- 10
 cl <- makeCluster(cores)
 registerDoParallel(cl)
 
-estimate <- foreach(i = 1:10) %dopar% rf(i)
+estimate <- foreach(i = 1:10) %dopar% rf(i, trees = t)
 
 
 end <- Sys.time()
-end - start
+dur <- end - start
+print(dur)
 
 stopCluster(cl)
 registerDoSEQ()
@@ -132,4 +139,7 @@ for(i in 2:n) result <- rbind(result, estimate[[i]])
 summary(result$Lift)
 summary(result$AUC)
 
-save(result, file = "RF_3000Tree_30Vars.RData")
+filename <- paste("Results/RF_", t, "Tree_", nvar,"Vars_Phone_Mean.RData", sep = "")
+
+save(result, file = filename)
+}
