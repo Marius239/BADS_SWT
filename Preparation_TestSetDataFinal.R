@@ -234,6 +234,41 @@ trainingSetFinal <- dnew[dnew$dummyFinalTestSet == FALSE,]
 testSetFinal <- dnew[dnew$dummyFinalTestSet == TRUE,]
 trainingSetFinal$churn <- droplevels(trainingSetFinal$churn)
 
+
+# 40 VARIABLES
+
+trainingSetFinal <- subset(trainingSetFinal, select = c(Customer_ID, eqpdays, months, mou_Mean, totmrc_Mean,last_swap,
+                                                        hnd_price,adjrev, change_mou, mou_cvce_Mean, avg3mou,
+                                                        totrev,mou_Range, mou_opkv_Mean,totcalls,phones, avg3qty,
+                                                        complete_Mean, peak_vce_Mean,comp_vce_Mean, totmou, opk_vce_Mean,
+                                                        mou_peav_Mean,adjqty, avgqty,adjmou,rev_Mean, ovrmou_Range,
+                                                        rev_Range, ovrmou_Mean, plcd_vce_Mean, attempt_Mean, mou_rvce_Mean,
+                                                        models, pre_hnd_price, ovrrev_Mean, avgrev, ovrrev_Range, ethnic, avg6mou,
+                                                        avg6rev, churn))
+
+
+
+
+testSetFinal <- subset(testSetFinal, select = c(Customer_ID, eqpdays, months, mou_Mean, totmrc_Mean,last_swap,
+                                                hnd_price,adjrev, change_mou, mou_cvce_Mean, avg3mou,
+                                                totrev,mou_Range, mou_opkv_Mean,totcalls,phones, avg3qty,
+                                                complete_Mean, peak_vce_Mean,comp_vce_Mean, totmou, opk_vce_Mean,
+                                                mou_peav_Mean,adjqty, avgqty,adjmou,rev_Mean, ovrmou_Range,
+                                                rev_Range, ovrmou_Mean, plcd_vce_Mean, attempt_Mean, mou_rvce_Mean,
+                                                models, pre_hnd_price, ovrrev_Mean, avgrev, ovrrev_Range, ethnic, avg6mou,
+                                                avg6rev, churn))
+
+
+
+
+
+
+
+
+
+
+# 30 VARIABLES 
+
 trainingSetFinal <- subset(trainingSetFinal, select = c(Customer_ID, eqpdays, months, mou_Mean, totmrc_Mean,last_swap,
                                              hnd_price,adjrev, change_mou, mou_cvce_Mean, avg3mou,
                                              totrev,mou_Range, mou_opkv_Mean,totcalls,phones, avg3qty,
@@ -252,8 +287,8 @@ testSetFinal <- subset(testSetFinal, select = c(Customer_ID, eqpdays, months, mo
                                                    rev_Range, ovrmou_Mean, plcd_vce_Mean, churn))
 
 
-save(trainingSetFinal, file = "~/Google Drive/BADS_SWT/TrainingData.RData")
-save(testSetFinal, file = "~/Google Drive/BADS_SWT/TestData.RData")
+save(trainingSetFinal, file = "~/Google Drive/BADS_SWT/Data40Vars/TrainingData.RData")
+save(testSetFinal, file = "~/Google Drive/BADS_SWT/Data40Vars/TestData.RData")
 
 set.seed(13)
 # Division in two uses 70% for training and 30% for testint
